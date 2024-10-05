@@ -14,8 +14,8 @@ main.title("Simple CustomTkinter Main")
 db_config = {
     'host': 'localhost',  # Use 'localhost' instead of 'local'
     'database': 'signup',  # Replace with your actual database name
-    'user': 'root',       # Username
-    'password': 'K110406VIR'  # Password
+    'user': 'vihan',       # Username
+    'password': 'Aadivnt24#'  # Password
 }
 
 def create_connection():
@@ -99,13 +99,13 @@ def newwindow(username):
     right = ctk.CTkFrame(newwin, height=940, width=1060, fg_color='#e1d4c8')
     right.pack(side=ctk.RIGHT)
 
-    bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\user.png")  
+    bg_image = Image.open(r"C:\Users\Vihan\Desktop\user.png")  
     bg_image = bg_image.resize((80, 60))  
     bg_photo = ImageTk.PhotoImage(bg_image)
     bg_label = ctk.CTkLabel(top, image=bg_photo, text='')
     bg_label.place(x=20, y=15)
 
-    bg_image2 = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\icon3.webp")  
+    bg_image2 = Image.open(r"C:\Users\Vihan\Desktop\icon3.webp")  
     bg_image2 = bg_image2.resize((200, 180))  
     bg_photo2 = ImageTk.PhotoImage(bg_image2)
     bg_label2 = ctk.CTkLabel(right, image=bg_photo2, text='')
@@ -131,84 +131,68 @@ def newwindow(username):
 
     labeld3 = ctk.CTkLabel(right, text="Enter your savings of this month", font=("Arial bold", 22))
     labeld3.place(x=50, y=180)
-
+    
     entry2 = ctk.CTkEntry(right, placeholder_text="Savings", width=200)
     entry2.place(x=420, y=180)
 
-    labeld4 = ctk.CTkLabel(right, text="Your Saving Category is ", font=("Arial bold", 20))
-    labeld4.place(x=50, y=350)
+    # This label will display the savings category
+    category_label = ctk.CTkLabel(right, text="Your Saving Category is: ", font=("Arial bold", 20))
+    category_label.place(x=50, y=350)
 
-    button_close = ctk.CTkButton(left, text="Close", command=newwin.destroy, bg_color='black',fg_color='black')
+    def categorize_savings(salary, savings):
+        savings_percent = (float(savings) / float(salary)) * 100
+        if savings_percent <= 10:
+            return "Category A (0-10%)"
+        elif savings_percent <= 15:
+            return "Category B (10-15%)"
+        elif savings_percent <= 20:
+            return "Category C (15-20%)"
+        else:
+            return "Above Category C (20%+)"
+
+    def show_savings_category():
+        salary = entry1.get()
+        savings = entry2.get()
+        
+        if salary and savings:
+            try:
+                category = categorize_savings(salary, savings)
+                category_label.configure(text=f"Your Saving Category is: {category}")
+            except ValueError:
+                messagebox.showerror("Error", "Please enter valid numeric values for salary and savings.")
+        else:
+            messagebox.showerror("Error", "Both salary and savings fields must be filled.")
+
+    # Submit button that triggers the category display
+    submit_button = ctk.CTkButton(right, text='Submit', command=show_savings_category, fg_color='black')
+    submit_button.place(x=200, y=500)
+
+    # Next button to continue to the next step (functionality can be defined later)
+    next_button = ctk.CTkButton(right, text='Next', command=lambda: print("Next step"), fg_color='black')
+    next_button.place(x=400, y=500)
+
+    button_close = ctk.CTkButton(left, text="Close", command=newwin.destroy, bg_color='black', fg_color='black')
     button_close.place(x=100, y=450)
 
     def ret():
         login_window()
         newwin.destroy()
 
-    goback = ctk.CTkButton(left, text="Return", command=ret, bg_color='black',fg_color='black')
+    goback = ctk.CTkButton(left, text="Return", command=ret, bg_color='black', fg_color='black')
     goback.place(x=100, y=500)
-    
-    username = entry_username.get()
-    next=ctk.CTkButton(right,text='Next',command=lambda:gonext(username),fg_color='black')
-    next.place(x=300,y=500)
 
     # Hide the main window
     main.withdraw()
 
-    def gonext(username):
-        cfilter = ctk.CTkToplevel()
-        cfilter.geometry('1350x750+100+20')
-        cfilter.title("Dashboard")
-
-        top = ctk.CTkFrame(cfilter, width=1000, height=100, fg_color='#ccc27b')
-        top.pack(side=ctk.TOP, fill=ctk.X)
-
-        left = ctk.CTkFrame(cfilter, height=940, width=300, fg_color='#ccc27b')
-        left.pack(side=ctk.LEFT)
-        
-        right = ctk.CTkFrame(cfilter, height=940, width=1060, fg_color='#545454')
-        right.pack(side=ctk.RIGHT)
-        bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\user.png")  
-        bg_image = bg_image.resize((80, 60))  
-        bg_photo = ImageTk.PhotoImage(bg_image)
-        bg_label = ctk.CTkLabel(top, image=bg_photo, text='')
-        bg_label.place(x=20, y=15)
-
-        labeld = ctk.CTkLabel(top, text=f"Welcome, {username}", font=("Arial bold", 40))
-        labeld.place(x=100, y=12)
-        
-        #FILTER 
-        sort=ctk.CTkLabelFrame(left,text='List Books',width=320,height=110,bg='#fff8dc')
-        sort.place(x=10,y=0)
-        lbl_sort=ctk.CTkLabel(sort,text='Sort By',font='arial 12 bold',bg='#fff8dc')
-        lbl_sort.place(x=110,y=0)
-        listchoice=ctk.CTkIntVar()
-        rd1=ctk.CTkRadiobutton(sort,text='Issued Books',var=listchoice,value=1,bg='#fff8dc',font='times 12')
-        rd2=ctk.CTkRadiobutton(sort,text='In Library',var=listchoice,value=2,bg='#fff8dc',font='times 12')
-        rd3=ctk.CTkRadiobutton(sort,text='All Books',var=listchoice,value=3,bg='#fff8dc',font='times 12')
-        rd1.place(x=5,y=20)
-        rd2.place(x=120,y=20)
-        rd3.place(x=210,y=20)
-        filter=ctk.CTkButton(sort,text='Apply Filter',font='arial 10 bold',bd=4,
-                           bg='lightcyan')
-        filter.place(x=210,y=50)
-
-        newwin.destroy()
-
-
-
-
-    
-
 def login_window():
-    bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\icon3.webp")  
+    bg_image = Image.open(r"C:\Users\Vihan\Desktop\icon3.webp")  
     bg_image = bg_image.resize((150, 130))  
     bg_photo = ImageTk.PhotoImage(bg_image)
     bg_label = ctk.CTkLabel(main, image=bg_photo, text='')
     bg_label.place(x=290, y=10)
 
     # Create labels
-    name = ctk.CTkLabel(main, text="SustainVest", font=("Arial ", 40))
+    name = ctk.CTkLabel(main, text="SustainVest", font=("Adura", 40))
     name.place(x=240, y=120)
     label = ctk.CTkLabel(main, text="Make Sustainable Investment", font=("Arial", 30), bg_color="transparent", fg_color='transparent')
     label.place(x=170, y=180)
