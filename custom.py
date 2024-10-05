@@ -1,9 +1,8 @@
-
 import customtkinter as ctk
 from PIL import Image,ImageTk
 
 # Set theme and initialize main window
-ctk.set_default_color_theme("dark-blue")
+#ctk.set_default_color_theme("dark-blue")
 main = ctk.CTk()
 main.geometry("700x600")
 main.title("Simple CustomTkinter Main")
@@ -11,7 +10,7 @@ main.title("Simple CustomTkinter Main")
 def login():
     username = entry_username.get()
     password = entry_password.get()
-    if username == "Vihan" and password == "pass":
+    if username == "a" and password == "a":
         label_title.configure(text='Login Successfull')
         newwindow(username)
     else:
@@ -21,7 +20,7 @@ def signup():
     signup_window = ctk.CTkToplevel()
     signup_window.geometry("400x300")
     signup_window.title("Signup")
-    #signup_window.attributes("-topmost", True) 
+    signup_window.attributes("-topmost", True) 
 
     label_signup_title = ctk.CTkLabel(signup_window, text="Signup", font=("Arial", 20))
     label_signup_title.pack(pady=10)
@@ -45,37 +44,61 @@ def newacc(username, password):
 
 def newwindow(username):
     newwin = ctk.CTkToplevel()
-    newwin.geometry("1000x1000")
+    newwin.geometry('1350x750+100+20')
     newwin.title("Dashboard")
     
-    labeld = ctk.CTkLabel(newwin, text=f"Welcome, {username}" , font=("Arial", 40))
-    labeld.grid(row=3, column=1)
+    top=ctk.CTkFrame(newwin,width=1000,height=100,fg_color='#a69080')
+    top.pack(side=ctk.TOP,fill=ctk.X)
+
+    left=ctk.CTkFrame(newwin,height=940,width=300,fg_color='#ac8968')
+    left.pack(side=ctk.LEFT)
     
-    labeld1 = ctk.CTkLabel(newwin, text="Lets Start Your Investment Journey!!", font=("Arial", 28))
-    labeld1.grid(row=4, column=2)
+    right=ctk.CTkFrame(newwin,height=940,width=1060,fg_color='#e1d4c8')
+    right.pack(side=ctk.RIGHT)
 
-    labeld2 = ctk.CTkLabel(newwin, text="Enter your monthly salary", font=("Arial", 22))
-    labeld2.grid(row=5, column=2)
+    bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\user.png")  
+    bg_image = bg_image.resize((80,60))  
+    bg_photo = ImageTk.PhotoImage(bg_image)
+    bg_label = ctk.CTkLabel(top, image=bg_photo,text='')
+    bg_label.place(x=20,y=15)
 
-    entry1= ctk.CTkEntry(newwin, placeholder_text="Salary", width=300)
-    entry1.grid(row=5, column=3)
+    bg_image2 = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\icon3.webp")  
+    bg_image2 = bg_image2.resize((80,60))  
+    bg_photo2 = ImageTk.PhotoImage(bg_image2)
+    bg_label2 = ctk.CTkLabel(right, image=bg_photo2,text='')
+    bg_label2.place(x=400,y=80)
 
-    labeld3 = ctk.CTkLabel(newwin, text="Savings Categories: \n Category A- 0-10% \n Category B- 10-15% \n Category C-15-20% ", font=("Arial", 22))
-    labeld3.grid(row=2, column=2)
+    labeld = ctk.CTkLabel(top, text=f"Welcome, {username}" , font=("Arial bold", 40))
+    labeld.place(x=100,y=12)
+    
+    labeld1 = ctk.CTkLabel(right, text="Lets Start Your Investment Journey!!", font=("Arial bold", 28))
+    labeld1.place(x=300,y=50)
 
-    labeld3 = ctk.CTkLabel(newwin, text="Enter your savings of this month", font=("Arial", 22))
-    labeld3.grid(row=6, column=2)
+    labeld2 = ctk.CTkLabel(right, text="Enter your monthly salary", font=("Arial bold", 22))
+    labeld2.place(x=50,y=130)
 
-    entry2= ctk.CTkEntry(newwin, placeholder_text="Savings", width=300)
-    entry2.grid(row=6, column=3)
+    entry1= ctk.CTkEntry(right, placeholder_text="Salary", width=200)
+    entry1.place(x=400,y=130)
 
-    labeld4 = ctk.CTkLabel(newwin, text="Your Saving Category is ", font=("Arial", 22))
-    labeld4.grid(row=9, column=2)
+    labeld3 = ctk.CTkLabel(left, text="Savings Categories: ", font=("Arial bold", 22))
+    labeld3.place(x=50,y=50)
+
+    labeld3_2=ctk.CTkLabel(left, text="Category A- 0-10% \n Category B- 10-15% \n Category C-15-20% ", font=("Arial bold", 18))
+    labeld3_2.place(x=50,y=75)
+
+    labeld3 = ctk.CTkLabel(right, text="Enter your savings of this month", font=("Arial bold", 20))
+    labeld3.place(x=55,y=180)
+
+    entry2= ctk.CTkEntry(right, placeholder_text="Savings", width=200)
+    entry2.place(x=400,y=180)
+
+    labeld4 = ctk.CTkLabel(right, text="Your Saving Category is ", font=("Arial bold", 20))
+    labeld4.place(x=50,y=350)
 
 
 
-    button_close = ctk.CTkButton(newwin, text="Close", command=newwin.destroy)
-    button_close.grid(row=9, column=2, columnspan=2, pady=20)
+    button_close = ctk.CTkButton(left, text="Close", command=newwin.destroy,bg_color='black')
+    button_close.place(x=100,y=450)
 
 
 
@@ -83,10 +106,10 @@ def newwindow(username):
     # Hide the main window
     main.withdraw()
 
-bg_image = Image.open(r"C:\Users\Vihan\desktop\icon3.webp")  # Make sure the path is correct
+bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\icon3.webp")  # Make sure the path is correct
 bg_image = bg_image.resize((150,130))  # Resize if necessary
 bg_photo = ImageTk.PhotoImage(bg_image)
-bg_label = ctk.CTkLabel(main, image=bg_photo)
+bg_label = ctk.CTkLabel(main, image=bg_photo,text='')
 bg_label.place(x=290,y=10)
 
 # Create labels
