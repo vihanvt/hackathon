@@ -5,6 +5,11 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from datetime import datetime
 import threading
+import mysql.connector as m
+
+cob=m.connect(host='localhost',user='root',password='9636103034',database='hackathon')
+cursorob=cob.cursor()
+
 
 # Fetch stock data from yfinance
 def fetch_stock_data(symbol):
@@ -44,9 +49,18 @@ root.title("Live Stock Price")
 root.geometry("800x600")
 
 # Stock symbol
-stock_symbol = "GOOGL"  # You can change this to any stock symbol
+
+cursorob.execute('select * from data')
+r=cursorob.fetchall()
+x = '' #Mention the company you want
+for i in r:
+    if i[1] == x:
+        a = i[2] #Storing the company symbol
+        
+stock_symbol = "{}".format(a)  # You can change this to any stock symbol
 
 # Create and embed the initial plot in the Tkinter window
+
 fig = plot_stock(stock_symbol)
 canvas = FigureCanvasTkAgg(fig, master=root)
 canvas.draw()
