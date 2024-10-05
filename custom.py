@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from PIL import Image,ImageTk
 
 # Set theme and initialize main window
 ctk.set_default_color_theme("dark-blue")
@@ -10,11 +11,10 @@ def login():
     username = entry_username.get()
     password = entry_password.get()
     if username == "user" and password == "pass":
-        newlabel = ctk.CTkLabel(main, text="Login Successful", font=("Verdana", 20))
-        newlabel.grid(row=5, column=0, columnspan=2, pady=20, padx=10)
+        label_title.configure(text='Login Successfull')
         newwindow()
     else:
-        label_message.configure(text="Login Failed", text_color="red")
+        label_title.configure(text="Login Failed", text_color="red",font=20)
 
 def signup():
     signup_window = ctk.CTkToplevel()
@@ -53,35 +53,45 @@ def newwindow():
 
     main.withdraw()
 
+
+
+bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\icon3.webp")  # Make sure the path is correct
+bg_image = bg_image.resize((150,130))  # Resize if necessary
+bg_photo = ImageTk.PhotoImage(bg_image)
+bg_label = ctk.CTkLabel(main, image=bg_photo)
+bg_label.place(x=290,y=10)
+
 # Create labels
-label = ctk.CTkLabel(main, text="Sustainable Investment", font=("Verdana", 50))
-label.grid(row=0, column=0, columnspan=2, pady=20, padx=10)
+name=ctk.CTkLabel(main,text="SustainVest",font=("Arial ",40))
+name.place(x=240,y=120)
+label = ctk.CTkLabel(main, text="Make Sustainable Investment", font=("Arial", 30),bg_color="transparent",fg_color='transparent')
+label.place(x=170,y=180)
 
-label_title = ctk.CTkLabel(main, text="Login", font=("Verdana", 40))
-label_title.grid(row=1, column=0, columnspan=2, pady=20)
-
-label_message = ctk.CTkLabel(main, text="", font=("Arial", 14))
-label_message.grid(row=4, column=0)
+label_title = ctk.CTkLabel(main, text="", font=("arial", 20))
+label_title.place(x=290,y=440)
 
 # Create entry fields
-entry_username = ctk.CTkEntry(main, placeholder_text="Username", width=200)
-entry_username.grid(row=2, column=0, columnspan=2, pady=10)
+entry_username = ctk.CTkEntry(main, placeholder_text="Username", width=300)
+entry_username.place(x=200,y=260)
 
-entry_password = ctk.CTkEntry(main, placeholder_text="Password", show="*", width=200)
-entry_password.grid(row=3, column=0, columnspan=2, pady=10)
+entry_password = ctk.CTkEntry(main, placeholder_text="Password", show="*", width=300)
+entry_password.place(x=200,y=310)
+
+# Define button actions
+def clickme():
+    label.configure(text="Button clicked!")
 
 def close():
     main.destroy()
 
 # Create buttons
 button_new_user = ctk.CTkButton(main, text="New User", command=signup)
-button_new_user.grid(row=4, column=0, padx=10, pady=20)
+button_new_user.place(x=190,y=360)
 
 button_login = ctk.CTkButton(main, text="Login Now", command=login)
-button_login.grid(row=4, column=1, padx=10, pady=20)
-
+button_login.place(x=360,y=360)
 button_close = ctk.CTkButton(main, text="Close", command=close)
-button_close.grid(row=5, column=0, columnspan=2, pady=20)
+button_close.place(x=280,y=410)
 
 # Start the main loop
 main.mainloop()
