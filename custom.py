@@ -160,13 +160,13 @@ def newwindow(username):
         cfilter.geometry('1350x750+100+20')
         cfilter.title("Dashboard")
 
-        top = ctk.CTkFrame(newwin, width=1000, height=100, fg_color='black')
+        top = ctk.CTkFrame(cfilter, width=1000, height=100, fg_color='#ccc27b')
         top.pack(side=ctk.TOP, fill=ctk.X)
 
-        left = ctk.CTkFrame(newwin, height=940, width=300, fg_color='#ac8968')
+        left = ctk.CTkFrame(cfilter, height=940, width=300, fg_color='#ccc27b')
         left.pack(side=ctk.LEFT)
         
-        right = ctk.CTkFrame(newwin, height=940, width=1060, fg_color='#e1d4c8')
+        right = ctk.CTkFrame(cfilter, height=940, width=1060, fg_color='#545454')
         right.pack(side=ctk.RIGHT)
         bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\user.png")  
         bg_image = bg_image.resize((80, 60))  
@@ -176,6 +176,24 @@ def newwindow(username):
 
         labeld = ctk.CTkLabel(top, text=f"Welcome, {username}", font=("Arial bold", 40))
         labeld.place(x=100, y=12)
+        
+        #FILTER 
+        sort=ctk.CTkLabelFrame(left,text='List Books',width=320,height=110,bg='#fff8dc')
+        sort.place(x=10,y=0)
+        lbl_sort=ctk.CTkLabel(sort,text='Sort By',font='arial 12 bold',bg='#fff8dc')
+        lbl_sort.place(x=110,y=0)
+        listchoice=ctk.CTkIntVar()
+        rd1=ctk.CTkRadiobutton(sort,text='Issued Books',var=listchoice,value=1,bg='#fff8dc',font='times 12')
+        rd2=ctk.CTkRadiobutton(sort,text='In Library',var=listchoice,value=2,bg='#fff8dc',font='times 12')
+        rd3=ctk.CTkRadiobutton(sort,text='All Books',var=listchoice,value=3,bg='#fff8dc',font='times 12')
+        rd1.place(x=5,y=20)
+        rd2.place(x=120,y=20)
+        rd3.place(x=210,y=20)
+        filter=ctk.CTkButton(sort,text='Apply Filter',font='arial 10 bold',bd=4,
+                           bg='lightcyan')
+        filter.place(x=210,y=50)
+
+        newwin.destroy()
 
 
 
