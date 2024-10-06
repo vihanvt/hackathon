@@ -15,7 +15,7 @@ db_config = {
     'host': 'localhost',  # Use 'localhost' instead of 'local'
     'database': 'signup',  # Replace with your actual database name
     'user': 'root',       # Username
-    'password': 'K110406VIR'  # Password
+    'password': 'Aadivnt24#'  # Password
 }
 
 def create_connection():
@@ -98,13 +98,13 @@ def newwindow(username):
     right = ctk.CTkFrame(newwin, height=940, width=1060, fg_color='#e1d4c8')
     right.pack(side=ctk.RIGHT)
 
-    bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\user.png")  
+    bg_image = Image.open(r"C:\Users\Vihan\Desktop\user.png")  
     bg_image = bg_image.resize((80, 60))  
     bg_photo = ImageTk.PhotoImage(bg_image)
     bg_label = ctk.CTkLabel(top, image=bg_photo, text='')
     bg_label.place(x=20, y=15)
 
-    bg_image2 = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\icon3.webp")  
+    bg_image2 = Image.open(r"C:\Users\Vihan\Desktop\icon3.webp")  
     bg_image2 = bg_image2.resize((200, 180))  
     bg_photo2 = ImageTk.PhotoImage(bg_image2)
     bg_label2 = ctk.CTkLabel(right, image=bg_photo2, text='')
@@ -175,7 +175,7 @@ def newwindow(username):
         login_window()
         newwin.destroy()
 
-    goback = ctk.CTkButton(left, text="Return", command=ret, bg_color='black',fg_color='black')
+    goback = ctk.CTkButton(left, text="Return", command=newwin.destroy, bg_color='black',fg_color='black')
     goback.place(x=100, y=500)
     
     username = entry_username.get()
@@ -198,7 +198,7 @@ def newwindow(username):
         
         right = ctk.CTkFrame(cfilter, height=940, width=1060, fg_color='white')
         right.pack(side=ctk.RIGHT)
-        bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\user.png")  
+        bg_image = Image.open(r"C:\Users\Vihan\Desktop\user.png")  
         bg_image = bg_image.resize((80, 60))  
         bg_photo = ImageTk.PhotoImage(bg_image)
         bg_label = ctk.CTkLabel(top, image=bg_photo, text='')
@@ -212,7 +212,7 @@ def newwindow(username):
 
         secvalue=ctk.StringVar()
         f_label=ctk.CTkLabel(left,text='FILTERS',font=('arial',20))
-        f_label.place(x=100,y=10)
+        f_label.place(x=100,y=8)
         f1_label=ctk.CTkLabel(left,text='SECTOR',font=('arial',14))
         f1_label.place(x=5,y=35)
         combobox = ctk.CTkComboBox(left, values=['None',"IT", "Pharma", "Banks",'Consumer Goods','Cement','Construction','Metals and Minings','Finance:Non-Banking','Automobile','Textiles','Power','Fertilisers & Pesticides','Banking:Non Finance','Services','Telecom','Industrial Manufacturing','Oil & Gas','Chemicals'])
@@ -246,15 +246,42 @@ def newwindow(username):
             else:
                 list.configure(state='normal')
                 list.delete(1.0,'end')
-                for i in data:
+                for i in data:  
                     list.insert('end',i[0]+'.'+i[1]+'\t\t\t\t\t\t'+i[2]+'\t\t\t'+i[3]+'\n')
                 list.configure(state='disabled')
 
 
-        fbutton=ctk.CTkButton(left,text='Filter',width=10,command=filtered)
-        fbutton.place(x=160,y=110)
+        fbutton=ctk.CTkButton(left,text='Filter',height=40,width=60,command=filtered)
+        fbutton.place(x=145,y=110)
+
+        closeb=ctk.CTkButton(left,text='Close',height=40,width=60,command=cfilter.destroy)
+        closeb.place(x=90,y=500)
+
+        username = entry_username.get()
+        newbutton=ctk.CTkButton(left,text='View Stock Price',height=40,width=60,command=lambda:StockWin(username))
+        newbutton.place(x=165,y=500)
+
+        def StockWin(username):
+            stockfilter = ctk.CTkToplevel()
+            stockfilter.geometry('1350x750+100+20')
+            stockfilter.title("Dashboard")
+
+            top = ctk.CTkFrame(stockfilter, width=1000, height=100, fg_color='#ccc27b')
+            top.pack(side=ctk.TOP, fill=ctk.X)
+
+            left = ctk.CTkFrame(stockfilter, height=940, width=300, fg_color='#ccc27b')
+            left.pack(side=ctk.LEFT)
+            
+            right = ctk.CTkFrame(stockfilter, height=940, width=1060, fg_color='white')
+            right.pack(side=ctk.RIGHT)
+
+            lbl=ctk.CTkLabel(top,text='Hello')
+            lbl.place(x=10,y=10)
         
         
+
+
+    
         #listbox
         def fcompany():
             global list
@@ -273,11 +300,11 @@ def newwindow(username):
         fcompany()
 
 
-        f_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\finance.jpg")  
+        f_image = Image.open(r"C:\Users\Vihan\Desktop\finance.jpg")  
         f_image = f_image.resize((380,350))  
         f_photo = ImageTk.PhotoImage(f_image)
         foto_label = ctk.CTkLabel(left, image=f_photo, text='')
-        foto_label.place(x=0, y=300)
+        foto_label.place(x=0, y=200)
 
         newwin.destroy()
 
@@ -287,7 +314,7 @@ def newwindow(username):
     
 
 def login_window():
-    bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\icon3.webp")  
+    bg_image = Image.open(r"C:\Users\Vihan\Desktop\icon3.webp")  
     bg_image = bg_image.resize((150, 130))  
     bg_photo = ImageTk.PhotoImage(bg_image)
     bg_label = ctk.CTkLabel(main, image=bg_photo, text='')
