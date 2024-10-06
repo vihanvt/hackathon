@@ -14,14 +14,13 @@ main.title("Simple CustomTkinter Main")
 db_config = {
     'host': 'localhost',  # Use 'localhost' instead of 'local'
     'database': 'signup',  # Replace with your actual database name
-    'user': 'vihan',       # Username
-    'password': 'Aadivnt24#'  # Password
+    'user': 'root',       # Username
+    'password': 'K110406VIR'  # Password
 }
 
 def create_connection():
     try:
         connection = mysql.connector.connect(**db_config)
-        print("Connection to MySQL DB successful")
     except Error as e:
         print(f"The error '{e}' occurred")
     return connection
@@ -99,13 +98,13 @@ def newwindow(username):
     right = ctk.CTkFrame(newwin, height=940, width=1060, fg_color='#e1d4c8')
     right.pack(side=ctk.RIGHT)
 
-    bg_image = Image.open(r"C:\Users\Vihan\Desktop\user.png")  
+    bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\user.png")  
     bg_image = bg_image.resize((80, 60))  
     bg_photo = ImageTk.PhotoImage(bg_image)
     bg_label = ctk.CTkLabel(top, image=bg_photo, text='')
     bg_label.place(x=20, y=15)
 
-    bg_image2 = Image.open(r"C:\Users\Vihan\Desktop\icon3.webp")  
+    bg_image2 = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\icon3.webp")  
     bg_image2 = bg_image2.resize((200, 180))  
     bg_photo2 = ImageTk.PhotoImage(bg_image2)
     bg_label2 = ctk.CTkLabel(right, image=bg_photo2, text='')
@@ -131,13 +130,18 @@ def newwindow(username):
 
     labeld3 = ctk.CTkLabel(right, text="Enter your savings of this month", font=("Arial bold", 22))
     labeld3.place(x=50, y=180)
-    
+
     entry2 = ctk.CTkEntry(right, placeholder_text="Savings", width=200)
     entry2.place(x=420, y=180)
 
-    # This label will display the savings category
-    category_label = ctk.CTkLabel(right, text="Your Saving Category is: ", font=("Arial bold", 20))
+    labeld4 = ctk.CTkLabel(right, text="Your Saving Category is ", font=("Arial bold", 20))
+    labeld4.place(x=50, y=350)
+
+    category_label=ctk.CTkLabel(right, text="Your Saving Category is: ", font=("Arial bold", 20))
     category_label.place(x=50, y=350)
+
+    button_close = ctk.CTkButton(left, text="Close", command=newwin.destroy, bg_color='black',fg_color='black')
+    button_close.place(x=100, y=450)
 
     def categorize_savings(salary, savings):
         savings_percent = (float(savings) / float(salary)) * 100
@@ -167,32 +171,130 @@ def newwindow(username):
     submit_button = ctk.CTkButton(right, text='Submit', command=show_savings_category, fg_color='black')
     submit_button.place(x=200, y=500)
 
-    # Next button to continue to the next step (functionality can be defined later)
-    next_button = ctk.CTkButton(right, text='Next', command=lambda: print("Next step"), fg_color='black')
-    next_button.place(x=400, y=500)
-
-    button_close = ctk.CTkButton(left, text="Close", command=newwin.destroy, bg_color='black', fg_color='black')
-    button_close.place(x=100, y=450)
-
     def ret():
         login_window()
         newwin.destroy()
 
-    goback = ctk.CTkButton(left, text="Return", command=ret, bg_color='black', fg_color='black')
+    goback = ctk.CTkButton(left, text="Return", command=ret, bg_color='black',fg_color='black')
     goback.place(x=100, y=500)
+    
+    username = entry_username.get()
+    next=ctk.CTkButton(right,text='Next',command=lambda:gonext(username),fg_color='black')
+    next.place(x=300,y=500)
 
     # Hide the main window
     main.withdraw()
 
+    def gonext(username):
+        cfilter = ctk.CTkToplevel()
+        cfilter.geometry('1350x750+100+20')
+        cfilter.title("Dashboard")
+
+        top = ctk.CTkFrame(cfilter, width=1000, height=100, fg_color='#ccc27b')
+        top.pack(side=ctk.TOP, fill=ctk.X)
+
+        left = ctk.CTkFrame(cfilter, height=940, width=300, fg_color='#ccc27b')
+        left.pack(side=ctk.LEFT)
+        
+        right = ctk.CTkFrame(cfilter, height=940, width=1060, fg_color='white')
+        right.pack(side=ctk.RIGHT)
+        bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\user.png")  
+        bg_image = bg_image.resize((80, 60))  
+        bg_photo = ImageTk.PhotoImage(bg_image)
+        bg_label = ctk.CTkLabel(top, image=bg_photo, text='')
+        bg_label.place(x=20, y=15)
+
+        labeld = ctk.CTkLabel(top, text=f"Welcome, {username}", font=("Arial bold", 40))
+        labeld.place(x=100, y=12)
+
+        label_filtered=ctk.CTkLabel(right,text="The companies based on your filters are",font=('arial',22))
+        label_filtered.place(x=0,y=20)
+
+        secvalue=ctk.StringVar()
+        f_label=ctk.CTkLabel(left,text='FILTERS',font=('arial',20))
+        f_label.place(x=100,y=10)
+        f1_label=ctk.CTkLabel(left,text='SECTOR',font=('arial',14))
+        f1_label.place(x=5,y=35)
+        combobox = ctk.CTkComboBox(left, values=['None',"IT", "Pharma", "Banks",'Consumer Goods','Cement','Construction','Metals and Minings','Finance:Non-Banking','Automobile','Textiles','Power','Fertilisers & Pesticides','Banking:Non Finance','Services','Telecom','Industrial Manufacturing','Oil & Gas','Chemicals'])
+        combobox.place(x=90,y=35)
+        combobox.set("None") 
+
+        gvalue=ctk.StringVar()
+        f2_label=ctk.CTkLabel(left,text='ESG GRADE',font=('arial',14))
+        f2_label.place(x=5,y=70)
+        combobox2=ctk.CTkComboBox(left, values=['None','A','B+','B','B-','C+','C'])
+        combobox2.place(x=90,y=70)
+        combobox2.set("None")
+
+        def filtered():
+            m=combobox.get()
+            n=combobox2.get()
+            connection = create_connection()
+            cursor = connection.cursor()
+            cursor.execute('Use hackathon')
+            if m=='None' and n=='None':
+                cursor.execute('SELECT * FROM data ORDER BY CAST(Sno AS UNSIGNED) ASC')
+            elif m=='None':
+                cursor.execute('Select * from data where esg="{}" ORDER BY CAST(Sno AS UNSIGNED) ASC'.format(n))
+            elif n=='None':
+                cursor.execute('Select * from data where sector="{}" ORDER BY CAST(Sno AS UNSIGNED) ASC'.format(m))
+            else:
+                cursor.execute('Select * from data where sector="{}" and esg="{}" ORDER BY CAST(Sno AS UNSIGNED) ASC'.format(m,n))
+            data=cursor.fetchall()
+            if data==[]:
+                messagebox.showinfo("None",'No companies available with the above filters')
+            else:
+                list.configure(state='normal')
+                list.delete(1.0,'end')
+                for i in data:
+                    list.insert('end',i[0]+'.'+i[1]+'\t\t\t\t\t\t'+i[2]+'\t\t\t'+i[3]+'\n')
+                list.configure(state='disabled')
+
+
+        fbutton=ctk.CTkButton(left,text='Filter',width=10,command=filtered)
+        fbutton.place(x=160,y=110)
+        
+        
+        #listbox
+        def fcompany():
+            global list
+            list=ctk.CTkTextbox(right,width=1000,height=560,font=("Arial",20))
+            list.insert('end','    Company Name'+'\t\t\t\t\t\t'+'Sector'+'\t\t\t'+'ESG GRADE'+'\n\n')
+            list.place(x=0,y=80)
+            connection = create_connection()
+            cursor = connection.cursor()
+            cursor.execute('Use hackathon')
+            cursor.execute('SELECT * FROM data ORDER BY CAST(Sno AS UNSIGNED) ASC')
+            m=cursor.fetchall()
+            for i in m:
+                list.insert('end',i[0]+'.'+i[1]+'\t\t\t\t\t\t'+i[2]+'\t\t\t'+i[3]+'\n')
+            
+            list.configure(state='disabled')
+        fcompany()
+
+
+        f_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\finance.jpg")  
+        f_image = f_image.resize((380,350))  
+        f_photo = ImageTk.PhotoImage(f_image)
+        foto_label = ctk.CTkLabel(left, image=f_photo, text='')
+        foto_label.place(x=0, y=300)
+
+        newwin.destroy()
+
+
+
+
+    
+
 def login_window():
-    bg_image = Image.open(r"C:\Users\Vihan\Desktop\icon3.webp")  
+    bg_image = Image.open(r"C:\Users\kusha\OneDrive\Desktop\Kushagra\Tkinter\hackathon\\icon3.webp")  
     bg_image = bg_image.resize((150, 130))  
     bg_photo = ImageTk.PhotoImage(bg_image)
     bg_label = ctk.CTkLabel(main, image=bg_photo, text='')
     bg_label.place(x=290, y=10)
 
     # Create labels
-    name = ctk.CTkLabel(main, text="SustainVest", font=("Adura", 40))
+    name = ctk.CTkLabel(main, text="SustainVest", font=("Arial ", 40))
     name.place(x=240, y=120)
     label = ctk.CTkLabel(main, text="Make Sustainable Investment", font=("Arial", 30), bg_color="transparent", fg_color='transparent')
     label.place(x=170, y=180)
